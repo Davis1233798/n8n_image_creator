@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nsfw-image-generator
+    restart: always
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+    env_file:
+      - .env
+    environment:
+      - N8N_PORT=${N8N_PORT:-5678}
+      - N8N_PROTOCOL=${N8N_PROTOCOL:-http}
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-Asia/Taipei}
+      - TZ=${TZ:-Asia/Taipei}
+      # Supabase連接信息
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_API_KEY=${SUPABASE_API_KEY}
+      # OneDrive API憑證
+      - ONEDRIVE_CLIENT_ID=${ONEDRIVE_CLIENT_ID}
+      - ONEDRIVE_CLIENT_SECRET=${ONEDRIVE_CLIENT_SECRET}
+      - ONEDRIVE_REFRESH_TOKEN=${ONEDRIVE_REFRESH_TOKEN}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      # 掛載腳本目錄以便於更新
+      - ./scripts:/app/scripts
+
+volumes:
+  n8n_data: 

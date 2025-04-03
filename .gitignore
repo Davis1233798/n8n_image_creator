@@ -1,0 +1,22 @@
+# 敏感文件
+.env
+
+# n8n資料
+n8n_data/
+
+# 環境資料夾
+.venv/
+venv/
+ENV/
+
+# Python緩存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 日誌文件
+*.log
+
+# 其他
+.DS_Store
+Thumbs.db 
